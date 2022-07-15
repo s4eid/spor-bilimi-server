@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      =    env("DATABASE_URL")
+  shadowDatabaseUrl=env("SHADOW_DATABASE_URL")
+}
+
+model trainers{
+trainer_id String @id @default(uuid())
+first_name String @db.VarChar(100) 
+last_name String @db.VarChar(100)
+email String @unique
+image String
+createdAt DateTime @default(now())
+password String
+courses courses[]
+}
+model courses{
+course_id String @id @default(uuid())
+name String 
+title String
+category String
+details String
+learn String[]
+plans plans[]
+image String
+createdAt DateTime @default(now())
+trainer trainers @relation(fields: [trainer_id], references: [trainer_id])
+trainer_id String
+user_course user_courses[]
+}
+
+model plans{
+plan_id String @id @default(uuid())
+price Float
+time String 
+course courses @relation(fields: [course_id],references: [course_id])
+course_id String
+user_course user_courses[]
+createdAt DateTime @default(now())
+}
+
+model users{
+user_id String @id @default(uuid())
+first_name String @db.VarChar(100)
+last_name String @db.VarChar(100)
+email String @unique 
+password String
+createdAt DateTime @default(now())
+user_courses user_courses[]
+hashedRt String?
+}
+
+model user_courses{
+user_course_id String @id @default(uuid())
+user users @relation(fields: [user_id],references: [user_id])
+user_id String
+course courses @relation(fields: [course_id],references: [course_id])
+course_id String
+plan plans @relation(fields: [plan_id],references: [plan_id])
+plan_id String
+createdAt DateTime @default(now())
+}
+
+
