@@ -1,4 +1,3 @@
-import { rewriteURIForGET } from '@apollo/client';
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { JwtService } from '@nestjs/jwt';
