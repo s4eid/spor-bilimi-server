@@ -13,7 +13,6 @@ import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     GraphQLModule.forRoot({
-      // app.module.ts
       context: ({ req, res }) => ({ req, res }),
       cors: {
         origin: [process.env.WEB_URL],
