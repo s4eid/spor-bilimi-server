@@ -62,6 +62,10 @@ export class AuthService {
     });
     context.res.cookie('access_token', access_token, {
       secure: process.env.NODE_ENV === 'production',
+      domain:
+        process.env.NODE_ENV === 'development'
+          ? '.localhost'
+          : '.sb-p.vercel.app',
       // path: '/',
       // sameSite: "lax",
 
@@ -75,6 +79,10 @@ export class AuthService {
       // path: '',
       // sameSite: "lax",
       // sameSite: 'lax',
+      domain:
+        process.env.NODE_ENV === 'development'
+          ? '.localhost'
+          : '.sb-p.vercel.app',
       sameSite: process.env.NODE_ENV === 'production' ? 'none' : '',
       maxAge: 1000 * 60 * 60 * 24,
     });
