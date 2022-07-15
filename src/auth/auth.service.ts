@@ -62,13 +62,13 @@ export class AuthService {
     });
     context.res.cookie('access_token', access_token, {
       secure: process.env.NODE_ENV === 'production',
-      domain:
-        process.env.NODE_ENV === 'development'
-          ? '.localhost'
-          : '.sb-p.vercel.app',
+      // domain:
+      //   process.env.NODE_ENV === 'development'
+      //     ? '.localhost'
+      //     : '.sb-p.vercel.app',
       // path: '/',
       // sameSite: "lax",
-
+      domain: process.env.COOKIE_DOMAIN,
       sameSite: process.env.NODE_ENV === 'production' ? 'none' : '',
       // sameSite: 'lax',
       maxAge: 1000 * 60 * 60,
@@ -79,10 +79,7 @@ export class AuthService {
       // path: '',
       // sameSite: "lax",
       // sameSite: 'lax',
-      domain:
-        process.env.NODE_ENV === 'development'
-          ? '.localhost'
-          : '.sb-p.vercel.app',
+      domain: process.env.COOKIE_DOMAIN,
       sameSite: process.env.NODE_ENV === 'production' ? 'none' : '',
       maxAge: 1000 * 60 * 60 * 24,
     });
