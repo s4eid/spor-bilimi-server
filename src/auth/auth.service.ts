@@ -64,7 +64,9 @@ export class AuthService {
       secure: process.env.NODE_ENV === 'production',
       // path: '/',
       // sameSite: "lax",
-      sameSite: 'lax',
+
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : '',
+      // sameSite: 'lax',
       maxAge: 1000 * 60 * 60,
       // maxAge: 60 * 60 * 60,
     });
@@ -72,7 +74,8 @@ export class AuthService {
       secure: process.env.NODE_ENV === 'production',
       // path: '',
       // sameSite: "lax",
-      sameSite: 'lax',
+      // sameSite: 'lax',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : '',
       maxAge: 1000 * 60 * 60 * 24,
     });
     return {
