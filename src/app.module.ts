@@ -16,7 +16,7 @@ import { AuthModule } from './auth/auth.module';
       // app.module.ts
       context: ({ req, res }) => ({ req, res }),
       cors: {
-        origin: ['http://localhost:3001'],
+        origin: [process.env.WEB_URL],
         credentials: true,
       },
       playground: false,
