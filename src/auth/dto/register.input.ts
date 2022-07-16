@@ -10,4 +10,6 @@ export class RegisterInput {
   first_name: string;
   @Field()
   last_name: string;
+  @Field()
+  token: string;
 }

@@ -89,6 +89,13 @@ export class AuthService {
     };
   }
   async register(registerInput: RegisterInput) {
+    const secret = process.env.RECAPTCHA_SECRET_KEY;
+    const response = await this.httpService.axiosRef.post(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${registerInput.token}`,
+    );
+    if (!response.data.success) {
+      return new ApolloError('Register Failed!');
+    }
     const exist = await this.usersService.findOne(registerInput.email);
     if (exist) {
       return new ApolloError('Register Faild!');
@@ -105,12 +112,6 @@ export class AuthService {
 
     return {
       user: user,
-      access_token: this.jwtService.sign({
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email,
-        user_id: user.user_id,
-      }),
     };
   }
 }
