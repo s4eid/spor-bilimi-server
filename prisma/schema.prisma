@@ -65,7 +65,19 @@ course courses @relation(fields: [course_id],references: [course_id])
 course_id String
 plan plans @relation(fields: [plan_id],references: [plan_id])
 plan_id String
+time String?
+user_course_payment user_course_payment?
 createdAt DateTime @default(now())
+}
+
+model user_course_payment{
+user_course_payment_id String @id @default(uuid())
+user_course user_courses @relation(fields: [user_course_id],references: [user_course_id])
+user_course_id String @unique 
+iyzico_payment_id String
+paid_price Decimal
+price Decimal
+iyzico_commission_fee Decimal
 }
 
 

@@ -85,7 +85,7 @@ export class AuthService {
     });
     return {
       user: context.user,
-      access_token: access_token,
+      refresh: refresh_token,
     };
   }
   async register(registerInput: RegisterInput) {

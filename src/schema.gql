@@ -58,8 +58,8 @@ type UserCourse {
 }
 
 type LoginResponse {
-  access_token: String!
   user: User!
+  refresh: String!
 }
 
 type RegisterResponse {
