@@ -15,6 +15,7 @@ export class CoursesService {
     const courses = this.prisma.courses.findMany();
     return courses;
   }
+
   findAllTrainerCourses(trainer_id: string) {
     const courses = this.prisma.courses.findMany({
       where: { trainer_id: trainer_id },
@@ -22,8 +23,8 @@ export class CoursesService {
     return courses;
   }
 
-  findOne(id: string) {
-    const course = this.prisma.courses.findUnique({
+  async findOne(id: string) {
+    const course = await this.prisma.courses.findUnique({
       where: {
         course_id: id,
       },

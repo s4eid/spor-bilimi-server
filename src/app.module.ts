@@ -9,12 +9,15 @@ import { PlansModule } from './plans/plans.module';
 import { UserCoursesModule } from './user_courses/user_courses.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { UserAddressModule } from './user_address/user_address.module';
+import { UserCoursePaymentModule } from './user_course_payment/user_course_payment.module';
 
 @Module({
   imports: [
     GraphQLModule.forRoot({
       context: ({ req, res }) => ({ req, res }),
       cors: {
+        // origin: '*',
         origin: [process.env.WEB_URL],
         credentials: true,
       },
@@ -29,6 +32,8 @@ import { AuthModule } from './auth/auth.module';
     UserCoursesModule,
     UsersModule,
     AuthModule,
+    UserAddressModule,
+    UserCoursePaymentModule,
   ],
 
   controllers: [],

@@ -35,6 +35,15 @@ type Trainer {
   courses: [Course!]
 }
 
+type UserAddress {
+  user_address_id: String!
+  address: String!
+  city: String!
+  zip_code: String!
+  phone_number: String!
+  user: User!
+}
+
 type User {
   user_id: String!
   first_name: String!
@@ -42,6 +51,7 @@ type User {
   email: String!
   password: String
   user_courses: [UserCourse!]
+  user_address: UserAddress
   createdAt: String!
   hashedRt: String
 }
@@ -54,7 +64,18 @@ type UserCourse {
   course_id: String!
   plan: Plan!
   plan_id: String!
+  time: String
+  quiz: JSON
   createdAt: String!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type Status {
+  status: String!
 }
 
 type LoginResponse {
@@ -66,17 +87,28 @@ type RegisterResponse {
   user: User!
 }
 
+type UserCoursePayment {
+  user_course_payment_id: String!
+  user_couse_id: String!
+  iyzico_payment_id: String!
+  paid_price: Float!
+  price: Float!
+  iyzico_commission_fee: Float!
+}
+
 type Query {
   trainers: [Trainer!]!
   trainer(id: String!): Trainer!
   courses: [Course!]!
   course(id: String!): Course!
   plans: [Plan!]!
-  plan(id: Int!): Plan!
+  plan(id: String!): Plan!
   userCourses: [UserCourse!]!
   userCourse(id: Int!): UserCourse!
   users: [User!]!
   user(email: String!): User!
+  userAddress(id: String!): UserAddress!
+  userCoursePayment(id: Int!): UserCoursePayment!
 }
 
 type Mutation {
@@ -89,7 +121,7 @@ type Mutation {
   createPlan(createPlanInput: CreatePlanInput!): Plan!
   updatePlan(updatePlanInput: UpdatePlanInput!): Plan!
   removePlan(id: Int!): Plan!
-  createUserCourse(createUserCourseInput: CreateUserCourseInput!): UserCourse!
+  createUserCourse(createUserCourseInput: CreateUserCourseInput!): Status!
   updateUserCourse(updateUserCourseInput: UpdateUserCourseInput!): UserCourse!
   removeUserCourse(id: Int!): UserCourse!
   createUser(createUserInput: CreateUserInput!): User!
@@ -97,6 +129,12 @@ type Mutation {
   removeUser(id: Int!): User!
   login(loginInput: LoginInput!): LoginResponse!
   register(registerInput: RegisterInput!): RegisterResponse!
+  createUserAddress(createUserAddressInput: CreateUserAddressInput!): UserAddress!
+  updateUserAddress(updateUserAddressInput: UpdateUserAddressInput!): UserAddress!
+  removeUserAddress(id: Int!): UserAddress!
+  createUserCoursePayment(createUserCoursePaymentInput: CreateUserCoursePaymentInput!): UserCoursePayment!
+  updateUserCoursePayment(updateUserCoursePaymentInput: UpdateUserCoursePaymentInput!): UserCoursePayment!
+  removeUserCoursePayment(id: Int!): UserCoursePayment!
 }
 
 input CreateTrainerInput {
@@ -151,13 +189,39 @@ input UpdatePlanInput {
 }
 
 input CreateUserCourseInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  user_id: String!
+  course_id: String!
+  plan_id: String!
+  time: String
+  quiz: JSON
+  address: String!
+  city: String!
+  phone_number: String!
+  zip_code: String!
+  card_number: String!
+  owner: String!
+  cvv: String!
+  expire_y: String!
+  expire_m: String!
+  threeD: Boolean!
 }
 
 input UpdateUserCourseInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  user_id: String
+  course_id: String
+  plan_id: String
+  time: String
+  quiz: JSON
+  address: String
+  city: String
+  phone_number: String
+  zip_code: String
+  card_number: String
+  owner: String
+  cvv: String
+  expire_y: String
+  expire_m: String
+  threeD: Boolean
   id: Int!
 }
 
@@ -184,4 +248,38 @@ input RegisterInput {
   first_name: String!
   last_name: String!
   token: String!
+}
+
+input CreateUserAddressInput {
+  address: String!
+  city: String!
+  zip_code: String!
+  phone_number: String!
+  user_id: String!
+}
+
+input UpdateUserAddressInput {
+  address: String
+  city: String
+  zip_code: String
+  phone_number: String
+  user_id: String
+  id: Int!
+}
+
+input CreateUserCoursePaymentInput {
+  user_couse_id: String!
+  iyzico_payment_id: String!
+  paid_price: Float!
+  price: Float!
+  iyzico_commission_fee: Float!
+}
+
+input UpdateUserCoursePaymentInput {
+  user_couse_id: String
+  iyzico_payment_id: String
+  paid_price: Float
+  price: Float
+  iyzico_commission_fee: Float
+  id: Int!
 }

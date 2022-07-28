@@ -22,15 +22,18 @@ export class PlansService {
     return plans;
   }
 
-  findAllPlanCourses(course_id: string) {
-    const plans = this.prisma.plans.findMany({
+  async findAllPlanCourses(course_id: string) {
+    const plans = await this.prisma.plans.findMany({
       where: { course_id: course_id },
     });
     return plans;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} plan`;
+  async findOne(id: string) {
+    const plan = await this.prisma.plans.findUnique({
+      where: { plan_id: id },
+    });
+    return plan;
   }
 
   update(id: number, updatePlanInput: UpdatePlanInput) {

@@ -29,15 +29,15 @@ export class PlansResolver {
   findAll() {
     return this.plansService.findAll();
   }
-  @ResolveField()
-  async course(@Parent() plan: Plan) {
-    const { course_id } = plan;
-    return this.courseService.findOne(course_id);
-  }
 
   @Query(() => Plan, { name: 'plan' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.plansService.findOne(id);
+  }
+  @ResolveField()
+  async course(@Parent() course: Plan) {
+    const { course_id } = course;
+    return this.courseService.findOne(course_id);
   }
 
   @Mutation(() => Plan)

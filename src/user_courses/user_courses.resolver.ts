@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { UserCoursesService } from './user_courses.service';
-import { UserCourse } from './entities/user_course.entity';
+import { Status, UserCourse } from './entities/user_course.entity';
 import { CreateUserCourseInput } from './dto/create-user_course.input';
 import { UpdateUserCourseInput } from './dto/update-user_course.input';
 
@@ -8,8 +8,10 @@ import { UpdateUserCourseInput } from './dto/update-user_course.input';
 export class UserCoursesResolver {
   constructor(private readonly userCoursesService: UserCoursesService) {}
 
-  @Mutation(() => UserCourse)
-  createUserCourse(@Args('createUserCourseInput') createUserCourseInput: CreateUserCourseInput) {
+  @Mutation(() => Status)
+  createUserCourse(
+    @Args('createUserCourseInput') createUserCourseInput: CreateUserCourseInput,
+  ) {
     return this.userCoursesService.create(createUserCourseInput);
   }
 
@@ -24,8 +26,13 @@ export class UserCoursesResolver {
   }
 
   @Mutation(() => UserCourse)
-  updateUserCourse(@Args('updateUserCourseInput') updateUserCourseInput: UpdateUserCourseInput) {
-    return this.userCoursesService.update(updateUserCourseInput.id, updateUserCourseInput);
+  updateUserCourse(
+    @Args('updateUserCourseInput') updateUserCourseInput: UpdateUserCourseInput,
+  ) {
+    return this.userCoursesService.update(
+      updateUserCourseInput.id,
+      updateUserCourseInput,
+    );
   }
 
   @Mutation(() => UserCourse)

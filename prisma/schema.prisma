@@ -54,6 +54,7 @@ email String @unique
 password String
 createdAt DateTime @default(now())
 user_courses user_courses[]
+user_address user_address?
 hashedRt String?
 }
 
@@ -66,6 +67,7 @@ course_id String
 plan plans @relation(fields: [plan_id],references: [plan_id])
 plan_id String
 time String?
+quiz Json?
 user_course_payment user_course_payment?
 createdAt DateTime @default(now())
 }
@@ -78,6 +80,15 @@ iyzico_payment_id String
 paid_price Decimal
 price Decimal
 iyzico_commission_fee Decimal
+}
+model user_address{
+user_address_id String @id @default(uuid())
+user users @relation(fields: [user_id],references: [user_id])
+user_id String @unique
+address String 
+city String
+phone_number String
+zip_code String
 }
 
 
