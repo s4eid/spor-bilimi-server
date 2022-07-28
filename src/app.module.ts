@@ -17,7 +17,6 @@ import { UserCoursePaymentModule } from './user_course_payment/user_course_payme
     GraphQLModule.forRoot({
       context: ({ req, res }) => ({ req, res }),
       cors: {
-        // origin: '*',
         origin: [process.env.WEB_URL],
         credentials: true,
       },
