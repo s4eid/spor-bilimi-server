@@ -122,6 +122,7 @@ type Mutation {
   updatePlan(updatePlanInput: UpdatePlanInput!): Plan!
   removePlan(id: Int!): Plan!
   createUserCourse(createUserCourseInput: CreateUserCourseInput!): Status!
+  createMembership(createMembership: CreateMembershipInput!): Status!
   updateUserCourse(updateUserCourseInput: UpdateUserCourseInput!): UserCourse!
   removeUserCourse(id: Int!): UserCourse!
   createUser(createUserInput: CreateUserInput!): User!
@@ -204,6 +205,11 @@ input CreateUserCourseInput {
   expire_y: String!
   expire_m: String!
   threeD: Boolean!
+}
+
+input CreateMembershipInput {
+  quiz: JSON
+  time: String
 }
 
 input UpdateUserCourseInput {

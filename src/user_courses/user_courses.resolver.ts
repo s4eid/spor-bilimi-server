@@ -3,6 +3,7 @@ import { UserCoursesService } from './user_courses.service';
 import { Status, UserCourse } from './entities/user_course.entity';
 import { CreateUserCourseInput } from './dto/create-user_course.input';
 import { UpdateUserCourseInput } from './dto/update-user_course.input';
+import { CreateMembershipInput } from './dto/create-membership-input';
 
 @Resolver(() => UserCourse)
 export class UserCoursesResolver {
@@ -13,6 +14,12 @@ export class UserCoursesResolver {
     @Args('createUserCourseInput') createUserCourseInput: CreateUserCourseInput,
   ) {
     return this.userCoursesService.create(createUserCourseInput);
+  }
+  @Mutation(() => Status)
+  createMembership(
+    @Args('createMembership') createMembershipInput: CreateMembershipInput,
+  ) {
+    return this.userCoursesService.createMembership(createMembershipInput);
   }
 
   @Query(() => [UserCourse], { name: 'userCourses' })

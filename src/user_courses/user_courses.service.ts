@@ -8,6 +8,8 @@ import * as Iyzipay from 'iyzipay';
 import { CoursesService } from 'src/courses/courses.service';
 import { PlansService } from 'src/plans/plans.service';
 import { UsersService } from 'src/users/users.service';
+import client from '../../config/sendgrid';
+import { CreateMembershipInput } from './dto/create-membership-input';
 
 @Injectable()
 export class UserCoursesService {
@@ -134,6 +136,30 @@ export class UserCoursesService {
       }
       return { status: 'success' };
     });
+  }
+  async createMembership(createMembership: CreateMembershipInput) {
+    const memberStr = JSON.stringify(createMembership.quiz);
+    const time = JSON.stringify(createMembership.time);
+    const message = {
+      to: ['saeid.savage@gmail.com', 'saeid@step-agent.com'],
+      from: {
+        email: 'saeid.noormohammad@gmail.com',
+        name: 'saeid noormohammad',
+      },
+      subject: 'Yeni Uye Bilgileri',
+      html: `
+      <h3>
+   Yeni Uye Bilgileri:
+      </h3>
+      <br>
+     <p>${memberStr}</p>
+      <br>
+      <h4>Zoomda Gorusme Zamani</h4>
+      <p>${time}</p>
+      `,
+    };
+    // await client.send(message);
+    return { status: true };
   }
 
   findAll() {
