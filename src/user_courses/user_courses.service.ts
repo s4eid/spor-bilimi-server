@@ -139,7 +139,7 @@ export class UserCoursesService {
   }
   async createMembership(createMembership: CreateMembershipInput) {
     const memberStr = JSON.stringify(createMembership.quiz);
-    const time = JSON.stringify(createMembership.time);
+    // const time = JSON.stringify(createMembership.time);
     const message = {
       to: ['saeid.savage@gmail.com', 'saeid@step-agent.com'],
       from: {
@@ -154,10 +154,11 @@ export class UserCoursesService {
       <br>
      <p>${memberStr}</p>
       <br>
-      <h4>Zoomda Gorusme Zamani</h4>
-      <p>${time}</p>
       `,
     };
+
+    // <h4>Zoomda Gorusme Zamani</h4>
+    // <p>${time}</p>
     // await client.send(message);
     return { status: true };
   }
