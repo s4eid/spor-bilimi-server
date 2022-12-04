@@ -16,6 +16,7 @@ export class UserAddressService {
         zip_code: createUserAddressInput.zip_code,
       },
     });
+    console.log('hepppdnd.');
     return userAddress;
   }
 
