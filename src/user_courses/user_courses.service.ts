@@ -141,7 +141,11 @@ export class UserCoursesService {
     const memberStr = JSON.stringify(createMembership.quiz);
     // const time = JSON.stringify(createMembership.time);
     const message = {
-      to: ['saeid.savage@gmail.com', 'saeid@step-agent.com'],
+      to: [
+        'saeid.savage@gmail.com',
+        'saeid@step-agent.com',
+        'frkaksan@gmail.com',
+      ],
       from: {
         email: 'saeid.noormohammad@gmail.com',
         name: 'saeid noormohammad',
@@ -159,7 +163,7 @@ export class UserCoursesService {
 
     // <h4>Zoomda Gorusme Zamani</h4>
     // <p>${time}</p>
-    // await client.send(message);
+    await client.send(message);
     return { status: true };
   }
 
